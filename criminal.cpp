@@ -52,3 +52,32 @@ static int splitPipe(const string& line, string fields[], int maxFields) {
 
     return count;
 }
+
+int main() {
+
+
+}
+int main() {
+    const string FILE_NAME = "record.txt";
+    
+    ifstream find(FILE_NAME.c_str());
+    if (!find.isopen()) {
+        cout << "sorry could not open file" << FILE_NAME;
+        return 1;
+    }
+
+    int capacity = 30;
+    int size = 0;
+    CrimeRecord* records = new Crime[capacity];
+
+    string line;
+
+    if (!getline(find, line)) {
+        cout << "sorry file is empty...";
+        delete[] records;
+        return 1;
+    }
+
+    
+
+}
