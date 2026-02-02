@@ -78,6 +78,26 @@ int main() {
         return 1;
     }
 
-    
+    while (getline(find, line)) {
+        if (line.size() == 0) continue;
+
+        const int maxFLD = 12;
+        string f[maxFLD];
+        int n = splitPipe(line, f, maxFLD);
+
+        if (n < 9) continue;
+        if (size >= capacity) break;
+
+        records[size].lunrnsak = f[0];
+        records[size].incidentDate = f[1];
+        records[size].category = f[2];
+        records[size].city = f[3];
+        records[size].gangRelated = interpretYesNo(f[4]);
+        records[size].incidentId = f[5];
+        records[size].logitude = f[6];
+        records[size].latitude = f[7];
+        records[size].partCategory = f[8];
+        size++
+    }
 
 }
