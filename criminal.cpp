@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cctype>
 using namespace std;
 
 struct CrimeRecord {
@@ -11,7 +12,7 @@ struct CrimeRecord {
     bool gangRelated;
     string incidentId;
     string longitude;
-    stirng latitude;
+    string latitude;
     string partCategory;
 
 };
@@ -24,7 +25,19 @@ static string readLine(const string& prompt) {
 
 }
 
-static bool interpret(const string& s) {
+static string toUpper(const string& s) {
+    string result = s;
+    for(int i = 0; i < (int)result.size(); i++ ) {
+        result[i] = toupper((unsigned char)result[i]);
+
+    }
+    return result;
+}
+
+
+
+
+static bool interpretYesNo(const string& s) {
     return (s == "YES");
 }
 
@@ -53,22 +66,21 @@ static int splitPipe(const string& line, string fields[], int maxFields) {
     return count;
 }
 
-int main() {
 
 
-}
+
 int main() {
     const string FILE_NAME = "record.txt";
     
     ifstream find(FILE_NAME.c_str());
-    if (!find.isopen()) {
+    if (!find.is_open()) {
         cout << "sorry could not open file" << FILE_NAME;
         return 1;
     }
 
     int capacity = 30;
     int size = 0;
-    CrimeRecord* records = new Crime[capacity];
+    CrimeRecord* records = new CrimeRecord[capacity];
 
     string line;
 
@@ -88,16 +100,49 @@ int main() {
         if (n < 9) continue;
         if (size >= capacity) break;
 
-        records[size].lunrnsak = f[0];
+        records[size].lurnsak = f[0];
         records[size].incidentDate = f[1];
         records[size].category = f[2];
         records[size].city = f[3];
         records[size].gangRelated = interpretYesNo(f[4]);
         records[size].incidentId = f[5];
-        records[size].logitude = f[6];
+        records[size].longitude = f[6];
         records[size].latitude = f[7];
         records[size].partCategory = f[8];
-        size++
+        size++;
     }
+    find.close();
+
+
+
+    string searchCity = toUpper(readLine("Enter city in Los Angeles county to search: "));
+
+    if (searchCity.size() == 0) {
+        cout << "Did not enter city" << endl;
+        delete[] records;
+        return 0;
+    }
+
+    int matches = 0;
+
+    cout << "Crime records in " << searchCity;
+
+    for(int i = 0; i < size; i++) {
+        if (records[i].city == searchCity) {
+            cout << records[i].incidentId << "|" 
+               << records[i].incidentDate << "|"
+               << records[i].category << "|"
+               << records[i].city << "| Gang: "
+               << (records[i].gangRelated ? "YES" : "NO") <<"\n";
+
+            matches++;
+        }
+    }
+
+    cout <<"Matches found: " << matches << "\n";
+
+    delete[] records;
+    return 0;
+
 
 }
