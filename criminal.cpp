@@ -125,13 +125,13 @@ int main() {
 
     int matches = 0;
 
-    cout << "Crime records in " << searchCity;
+    cout << "\nCrime records in " << searchCity << ": \n";
 
     for(int i = 0; i < size; i++) {
         if (records[i].city == searchCity) {
-            cout << records[i].incidentId << "|" 
-               << records[i].incidentDate << "|"
-               << records[i].category << "|"
+            cout << records[i].incidentId << "| " 
+               << records[i].incidentDate << "| "
+               << records[i].category << "| "
                << records[i].city << "| Gang: "
                << (records[i].gangRelated ? "YES" : "NO") <<"\n";
 
