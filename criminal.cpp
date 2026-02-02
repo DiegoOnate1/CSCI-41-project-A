@@ -111,9 +111,8 @@ int main() {
         records[size].partCategory = f[8];
         size++;
     }
+
     find.close();
-
-
 
     string searchCity = toUpper(readLine("Enter city in Los Angeles county to search: "));
 
@@ -124,7 +123,6 @@ int main() {
     }
 
     int matches = 0;
-
     cout << "\nCrime records in " << searchCity << ": \n";
 
     for(int i = 0; i < size; i++) {
@@ -134,7 +132,6 @@ int main() {
                << records[i].category << "| "
                << records[i].city << "| Gang: "
                << (records[i].gangRelated ? "YES" : "NO") <<"\n";
-
             matches++;
         }
     }
@@ -143,6 +140,4 @@ int main() {
 
     delete[] records;
     return 0;
-
-
 }
